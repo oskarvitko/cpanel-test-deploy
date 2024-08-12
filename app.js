@@ -22,23 +22,6 @@ app.get('/app', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'))
 })
 
-app.post('/deploy', async (req, res) => {
-    const deploySecret = 'test-secret'
-    console.log(req.body)
-
-    try {
-        console.log('Deploy Started...')
-        await runBashCommand('git restore .')
-        await runBashCommand('git pull origin master')
-        await runBashCommand('npm install --production')
-        await runBashCommand('touch /tmp/restart.txt')
-        console.log('Deploy Ends Successfully')
-    } catch (e) {
-    } finally {
-        res.status(200).json('GOOD')
-    }
-})
-
 app.listen(PORT, () => {
     console.log('SERVER STARTED')
 })
