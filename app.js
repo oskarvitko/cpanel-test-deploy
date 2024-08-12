@@ -22,6 +22,10 @@ app.get('/app', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'))
 })
 
+app.get('/phrase', (req, res) => {
+    res.json('GOOD')
+})
+
 app.listen(PORT, () => {
     console.log('SERVER STARTED')
 })
