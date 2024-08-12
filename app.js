@@ -10,7 +10,7 @@ const runBashCommand = (command) =>
                 console.log(log)
                 res()
             } else {
-                rej()
+                rej(error)
             }
         })
     })
@@ -21,14 +21,20 @@ app.get('/app', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'))
 })
 
-app.get('/deploy', async () => {
-    console.log('Deploy Started...')
-    await runBashCommand(
-        'cd /hosting1/benzoxby/repositories/cpanel-test-deploy && git pull origin master',
-    )
-    await runBashCommand('npm install --production')
-    await runBashCommand('touch /tmp/restart.txt')
-    console.log('Deploy Ends Successfully')
+app.post('/deploy', async (req, res) => {
+    const deploySecret = 'test-secret'
+    console.log(req.body)
+
+    try {
+        console.log('Deploy Started...')
+        await runBashCommand('git reset --hard origin/master')
+        await runBashCommand('npm install --production')
+        await runBashCommand('touch /tmp/restart.txt')
+        console.log('Deploy Ends Successfully')
+    } catch (e) {
+    } finally {
+        res.status(200)
+    }
 })
 
 app.listen(PORT, () => {
