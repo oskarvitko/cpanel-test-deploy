@@ -27,6 +27,7 @@ app.post('/deploy', async (req, res) => {
 
     try {
         console.log('Deploy Started...')
+        await runBashCommand('git fetch origin/master')
         await runBashCommand('git reset --hard origin/master')
         await runBashCommand('npm install --production')
         await runBashCommand('touch /tmp/restart.txt')
