@@ -33,7 +33,7 @@ app.post('/deploy', async (req, res) => {
         console.log('Deploy Ends Successfully')
     } catch (e) {
     } finally {
-        res.status(200)
+        res.status(200).json('GOOD')
     }
 })
 
