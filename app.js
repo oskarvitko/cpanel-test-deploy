@@ -5,6 +5,7 @@ const exec = require('child_process').exec
 
 const runBashCommand = (command) =>
     new Promise((res, rej) => {
+        console.log(`Running: ${command}`)
         exec(command, (error, log) => {
             if (!error) {
                 console.log(log)
@@ -27,8 +28,8 @@ app.post('/deploy', async (req, res) => {
 
     try {
         console.log('Deploy Started...')
-        await runBashCommand('git fetch origin/master')
-        await runBashCommand('git reset --hard origin/master')
+        await runBashCommand('git restore .')
+        await runBashCommand('git pull origin master')
         await runBashCommand('npm install --production')
         await runBashCommand('touch /tmp/restart.txt')
         console.log('Deploy Ends Successfully')
