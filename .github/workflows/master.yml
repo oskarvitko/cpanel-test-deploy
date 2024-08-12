@@ -46,5 +46,4 @@ jobs:
             host: benzox.by
             username: ${{ secrets.FTP_USERNAME }}
             password: ${{ secrets.FTP_PASSWORD }}
-            port: 21
             script: touch repositories/cpanel-test-deploy/tmp/restart.txt
